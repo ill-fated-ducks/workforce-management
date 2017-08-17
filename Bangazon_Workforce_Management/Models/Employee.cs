@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Bangazon.Models;
+
 namespace Bangazon_Workforce_Management.Models
 {
     public class Employee
@@ -26,6 +28,6 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public int DeptID { get; set; }
 
-        //public Department Department { get; set; }
+        public Departments Department { get; set; }
     }
 }
