@@ -14,7 +14,7 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public int EmployeeID { get; set; }
         
-        //public Employee Employee { get; set; }
+        public Employee Employee { get; set; }
         
         [Required]
         public int ComputerID { get; set; }
