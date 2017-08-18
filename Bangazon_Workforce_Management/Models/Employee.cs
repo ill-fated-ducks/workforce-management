@@ -20,6 +20,7 @@ namespace Bangazon_Workforce_Management.Models
         public string LastName { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
@@ -28,6 +29,6 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public int DeptID { get; set; }
 
-        public Departments Department { get; set; }
+        public Department Department { get; set; }
     }
 }

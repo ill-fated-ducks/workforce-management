@@ -22,8 +22,9 @@ namespace Bangazon_Workforce_Management.Models
         public Computer Computer { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Start { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime End { get; set; }
     }
 }
