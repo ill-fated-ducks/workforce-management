@@ -28,5 +28,7 @@ namespace Bangazon_Workforce_Management.Models
         [MaxLength(20)]
         [Required]
         public int MaxAttendees { get; set; }
+
+        public ICollection<TrainingProgramEmployee> TrainingProgramEmployee { get; set; }
     }
 }
