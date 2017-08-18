@@ -23,5 +23,7 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public string Make { get; set; }
 
+        public ICollection<ComputerEmployee> ComputerEmployee { get; set; }
+
     }
 }

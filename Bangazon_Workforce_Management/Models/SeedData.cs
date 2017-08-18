@@ -115,6 +115,46 @@ namespace Bangazon_Workforce_Management.Models
 
                  );
 
+                context.ComputerEmployee.AddRange(
+                    // computer employee joins
+                    // past assigned
+                    new ComputerEmployee
+                    {
+                        ComputerID = 1,
+                        EmployeeID = 1,
+                        Start = DateTime.Parse("2000-12-13"),
+                        End = DateTime.Parse("2011-12-15")
+                    },
+                    // present assigned
+                    new ComputerEmployee
+                    {
+                        ComputerID = 1,
+                        EmployeeID = 1,
+                        Start = DateTime.Parse("2017-12-13"),
+                        End = DateTime.Parse("2017-12-15")
+                    }
+                     // no future assigned
+                );
+
+                context.TrainingProgramEmployee.AddRange(
+                     // present training program joins
+                     new TrainingProgramEmployee
+                     {
+                         TrainingProgramID = 1,
+                         EmployeeID = 1,
+                     },
+                     new TrainingProgramEmployee
+                     {
+                         TrainingProgramID = 2,
+                         EmployeeID = 2,
+                     },
+                     new TrainingProgramEmployee
+                     {
+                         TrainingProgramID = 3,
+                         EmployeeID = 3,
+                     }
+                );
+
                 context.SaveChanges();
             }
         }

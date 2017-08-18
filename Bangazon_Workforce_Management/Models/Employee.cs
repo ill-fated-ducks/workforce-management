@@ -30,5 +30,9 @@ namespace Bangazon_Workforce_Management.Models
         public int DeptID { get; set; }
 
         public Department Department { get; set; }
+
+        public ICollection<ComputerEmployee> ComputerEmployee { get; set; }
+
+        public ICollection<TrainingProgramEmployee> TrainingProgramEmployee { get; set; }
     }
 }
