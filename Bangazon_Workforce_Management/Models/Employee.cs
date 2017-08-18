@@ -14,9 +14,11 @@ namespace Bangazon_Workforce_Management.Models
         public int EmployeeID { get; set; }
 
         [Required]
+        [StringLength(40)]
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string LastName { get; set; }
 
         [Required]
