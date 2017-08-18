@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bangazon.Models
 {
-  public class Departments
+  public class Department
   {
     [Key]
     public int DeptID {get;set;}
