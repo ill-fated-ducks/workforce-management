@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace Bangazon.Models
+namespace Bangazon_Workforce_Management.Models
 {
   public class Department
   {

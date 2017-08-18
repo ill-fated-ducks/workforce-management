@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Bangazon.Models;
 using Bangazon_Workforce_Management.Models;
 
 namespace Bangazon_Workforce_Management.Controllers
