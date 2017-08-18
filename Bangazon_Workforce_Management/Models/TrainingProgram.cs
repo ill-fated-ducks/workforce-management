@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace Bangazon_Workforce_Management.Models
 {
     public class TrainingProgram
     {
+        [Key]
         public int TrainingProgramID { get; set; }
 
         [StringLength(30, MinimumLength = 2)]

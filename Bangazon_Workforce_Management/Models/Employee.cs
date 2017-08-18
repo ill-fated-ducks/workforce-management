@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Bangazon.Models;
+using Bangazon_Workforce_Management.Models;
 
 namespace Bangazon_Workforce_Management.Models
 {

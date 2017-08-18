@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Bangazon_Workforce_Management.Models;
 
 namespace Bangazon_Workforce_Management
 {
@@ -29,6 +31,9 @@ namespace Bangazon_Workforce_Management
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddDbContext<Bangazon_Workforce_ManagementContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Bangazon_Workforce_ManagementContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
