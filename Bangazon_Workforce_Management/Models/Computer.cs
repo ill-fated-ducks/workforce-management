@@ -12,8 +12,9 @@ namespace Bangazon_Workforce_Management.Models
         public int ComputerID { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime PurchaseDate { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime? DecomissionDate { get; set; }
 
         [Required]

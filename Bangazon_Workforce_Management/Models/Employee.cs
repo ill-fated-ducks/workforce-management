@@ -20,6 +20,7 @@ namespace Bangazon_Workforce_Management.Models
         public string LastName { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
