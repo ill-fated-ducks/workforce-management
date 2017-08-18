@@ -23,7 +23,7 @@ namespace Bangazon_Workforce_Management.Models
                      // present computer
                      new Computer
                      {
-                         PurchaseDate = DateTime.Now,
+                         PurchaseDate = DateTime.Parse("2008-02-23"),
                          DecomissionDate = null,
                          Manufacturer = "Dell",
                          Make = "Inspiron"
