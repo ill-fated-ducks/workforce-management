@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MvcMovie.Controllers
+namespace MvcMBangazon_Workforce_Managementovie.Controllers
 {
     public class HomeController : Controller
     {
