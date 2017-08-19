@@ -15,6 +15,10 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public string Name { get; set; }
 
+        [StringLength(200, MinimumLength = 10)]
+        [Required]
+        public string Description { get; set; }
+
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         [Required]
@@ -25,8 +29,9 @@ namespace Bangazon_Workforce_Management.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        [MaxLength(20)]
         [Required]
         public int MaxAttendees { get; set; }
+
+        public ICollection<TrainingProgramEmployee> TrainingProgramEmployee { get; set; }
     }
 }

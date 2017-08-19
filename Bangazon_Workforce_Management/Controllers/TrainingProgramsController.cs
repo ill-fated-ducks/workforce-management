@@ -53,7 +53,7 @@ namespace Bangazon_Workforce_Management.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TrainingProgramID,Name,StartDate,EndDate,MaxAttendees")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Create([Bind("TrainingProgramID,Name,Description,StartDate,EndDate,MaxAttendees")] TrainingProgram trainingProgram)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Bangazon_Workforce_Management.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TrainingProgramID,Name,StartDate,EndDate,MaxAttendees")] TrainingProgram trainingProgram)
+        public async Task<IActionResult> Edit(int id, [Bind("TrainingProgramID,Name,Description,StartDate,EndDate,MaxAttendees")] TrainingProgram trainingProgram)
         {
             if (id != trainingProgram.TrainingProgramID)
             {

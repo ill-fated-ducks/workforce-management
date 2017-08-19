@@ -17,6 +17,7 @@ namespace Bangazon_Workforce_Management.Models
     public string DeptName { get; set; }
 
     [Required]
+    [DataType(DataType.Currency)]
     public double Budget { get; set; }
   }
 }
