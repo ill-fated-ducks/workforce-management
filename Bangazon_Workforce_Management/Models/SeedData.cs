@@ -13,10 +13,11 @@ namespace Bangazon_Workforce_Management.Models
                 serviceProvider.GetRequiredService<DbContextOptions<Bangazon_Workforce_ManagementContext>>()))
             {
                 // Look for any computers as a check to see if db is already seeded.
-                if (context.Computer.Any())
-                {
-                    return;   // DB has been seeded
-                }
+        
+                //if (context.Computer.Any())
+                //{
+                //    return;   // DB has been seeded
+                //}
 
                 context.Computer.AddRange(
 
@@ -145,21 +146,17 @@ namespace Bangazon_Workforce_Management.Models
                      // present training program joins
                      new TrainingProgramEmployee
                      {
-                         TrainingProgramID = context.TrainingProgram.First(s => s.MaxAttendees == 12).TrainingProgramID,
+                         TrainingProgramID = context.TrainingProgram.First(s => s.Name == "Excelling at Excel").TrainingProgramID,
                          EmployeeID = context.Employee.First(s => s.FirstName == "John").EmployeeID,
                      },
                      new TrainingProgramEmployee
                      {
-                         TrainingProgramID = context.TrainingProgram.First(s => s.MaxAttendees == 22).TrainingProgramID,
+                         TrainingProgramID = context.TrainingProgram.First(s => s.Name == "Bring Your Things").TrainingProgramID,
                          EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
                      }
                 );
 
                 context.SaveChanges();
-                //context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Computer]");
-                //context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Department]");
-                //context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Employee]");
-                //context.Database.ExecuteSqlCommand("TRUNCATE TABLE [TrainingProgram]");
             }
         }
     }
