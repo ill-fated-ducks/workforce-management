@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MvcMBangazon_Workforce_Managementovie.Controllers
+namespace Bangazon_Workforce_Management.Controllers
 {
     public class HomeController : Controller
     {
