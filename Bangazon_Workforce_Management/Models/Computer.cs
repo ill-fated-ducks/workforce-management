@@ -18,10 +18,14 @@ namespace Bangazon_Workforce_Management.Models
         public DateTime? DecomissionDate { get; set; }
 
         [Required]
+        [StringLength(40)]
         public string Manufacturer { get; set; }
         
         [Required]
+        [StringLength(40)]
         public string Make { get; set; }
+
+        public ICollection<ComputerEmployee> ComputerEmployee { get; set; }
 
     }
 }

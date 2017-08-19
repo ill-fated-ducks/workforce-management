@@ -21,5 +21,9 @@ namespace Bangazon_Workforce_Management.Models
         public DbSet<Bangazon_Workforce_Management.Models.TrainingProgram> TrainingProgram { get; set; }
 
         public DbSet<Bangazon_Workforce_Management.Models.Employee> Employee { get; set; }
+
+        public DbSet<Bangazon_Workforce_Management.Models.ComputerEmployee> ComputerEmployee { get; set; }
+
+        public DbSet<Bangazon_Workforce_Management.Models.TrainingProgramEmployee> TrainingProgramEmployee { get; set; }
     }
 }

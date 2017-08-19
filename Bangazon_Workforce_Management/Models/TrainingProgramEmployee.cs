@@ -12,9 +12,9 @@ namespace Bangazon_Workforce_Management.Models
         public int TrainingProgramEmployeeID { get; set; }
         [Required]
         public  int TrainingProgramID { get; set; }
-        public ICollection<TrainingProgram> Program { get; set; }
+        public TrainingProgram TrainingProgram { get; set; }
         [Required]
         public int EmployeeID { get; set; }
-        public ICollection<Employee> Employee { get; set; }
+        public Employee Employee { get; set; }
     }
 }
