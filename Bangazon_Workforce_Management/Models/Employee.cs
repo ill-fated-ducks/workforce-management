@@ -14,14 +14,17 @@ namespace Bangazon_Workforce_Management.Models
         public int EmployeeID { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
         [StringLength(40)]
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Last Name")]
         [StringLength(50)]
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
@@ -29,6 +32,7 @@ namespace Bangazon_Workforce_Management.Models
         public bool Supervisor { get; set; }
         
         [Required]
+        [Display(Name = "Department")]
         public int DeptID { get; set; }
 
         public Department Department { get; set; }

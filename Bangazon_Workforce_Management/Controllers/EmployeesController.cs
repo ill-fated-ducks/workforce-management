@@ -35,6 +35,8 @@ namespace Bangazon_Workforce_Management.Controllers
 
             var employee = await _context.Employee
                 .Include(e => e.Department)
+                .Include("ComputerEmployee.Computer")
+                .Include("TrainingProgramEmployee.TrainingProgram")
                 .SingleOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
             {

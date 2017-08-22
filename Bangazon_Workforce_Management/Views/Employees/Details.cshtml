@@ -23,23 +23,43 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Supervisor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Supervisor)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Department.DeptName)
         </dd>
+        <dt>
+            @Html.LabelFor(model => model.ComputerEmployee, "Computers")
+        </dt>
+        
+            @*Include in employee controller brought back list of all 
+             computers for selected employee, to list on the view we need to loop through the list *@
+
+            @foreach (var item in Model.ComputerEmployee)
+            {
+                @if (item.End != null)
+                {
+
+                    <dd>
+                        @Html.DisplayFor(Model => item.Computer.Make)
+                    </dd>
+                }
+            }
+                
+        <dt>
+            @Html.LabelFor(model => model.TrainingProgramEmployee, "Training Programs")
+        </dt>
+        
+            @*Include in employee controller brought back list of all
+            training programs for selected employee, to list on the view we need to loop through the list *@
+
+            @foreach (var item in Model.TrainingProgramEmployee)
+            {
+             
+                <dd>@Html.DisplayFor(Model => item.TrainingProgram.Name)</dd>
+               
+            }
+        
     </dl>
 </div>
 <div>
