@@ -14,10 +14,10 @@ namespace Bangazon_Workforce_Management.Models
             {
                 // Look for any computers as a check to see if db is already seeded.
         
-                //if (context.Computer.Any())
-                //{
-                //    return;   // DB has been seeded
-                //}
+                if (context.Computer.Any())
+                {
+                    return;   // DB has been seeded
+                }
 
                 context.Computer.AddRange(
 
