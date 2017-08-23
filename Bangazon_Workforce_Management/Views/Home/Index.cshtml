@@ -139,8 +139,8 @@
                         @Html.DisplayFor(modelItem => item.Department.DeptName)
                     </td>
                     <td>
-                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
-                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
+                        <a asp-controller="Employees" asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
+                        <a asp-controller="Employees" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
                         
                     </td>
                 </tr>
@@ -178,7 +178,7 @@
                     </td>
                     <td>
                         <a asp-controller="TrainingPrograms" asp-action="Edit" asp-route-id="@item.TrainingProgramID">Edit</a> |
-                        <a asp-controller="TrainingProgram" asp-action="Details" asp-route-id="@item.TrainingProgramID">Details</a> |
+                        <a asp-controller="TrainingPrograms" asp-action="Details" asp-route-id="@item.TrainingProgramID">Details</a> |
                         
                     </td>
                 </tr>
