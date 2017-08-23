@@ -21,7 +21,8 @@ namespace Bangazon_Workforce_Management.Controllers
         // GET: TrainingPrograms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TrainingProgram.ToListAsync());
+            IEnumerable<TrainingProgram> programs = await _context.TrainingProgram.Where<TrainingProgram>(p => p.StartDate > DateTime.Now).ToListAsync();
+            return View(programs);
         }
 
         // GET: TrainingPrograms/Details/5

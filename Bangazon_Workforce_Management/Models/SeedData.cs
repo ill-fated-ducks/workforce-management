@@ -16,7 +16,8 @@ namespace Bangazon_Workforce_Management.Models
 
                 if (context.Computer.Any())
                 {
-                    return;   // db has been seeded
+
+                    return;   // DB has been seeded
                 }
 
                 context.Computer.AddRange(
