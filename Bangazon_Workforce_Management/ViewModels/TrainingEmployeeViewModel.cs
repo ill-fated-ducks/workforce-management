@@ -8,13 +8,13 @@ namespace Bangazon_Workforce_Management.ViewModels
 {
     public class TrainingEmployeeViewModel
     {
-        public IEnumerable<Employee> Employees { get; set; }
+        public IEnumerable<TrainingProgramEmployee> TrainingProgramEmployees { get; set; }
         public TrainingProgram Program { get; set; }
         
-        /*public TrainingEmployeeViewModel(IEnumerable<Employee> employees, TrainingProgram program)
+        public TrainingEmployeeViewModel(IEnumerable<TrainingProgramEmployee> employees, TrainingProgram program)
         {
             Program = program;
-            Employees = employees;
-        }*/
+            TrainingProgramEmployees = employees;
+        }
     }
 }
