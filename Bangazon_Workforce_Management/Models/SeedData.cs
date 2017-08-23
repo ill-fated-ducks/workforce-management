@@ -163,8 +163,8 @@ namespace Bangazon_Workforce_Management.Models
                     },
                      new ComputerEmployee
                      {
-                         ComputerID = context.Computer.First(s => s.Make == "Inspiron").ComputerID,
-                         EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
+                         ComputerID = context.Computer.First(s => s.Make == "Macbook").ComputerID,
+                         EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
                          Start = DateTime.Parse("2017-1-17"),
                          End = null
                      }
