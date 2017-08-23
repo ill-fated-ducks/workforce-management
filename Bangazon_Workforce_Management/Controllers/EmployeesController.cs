@@ -102,6 +102,9 @@ namespace Bangazon_Workforce_Management.Controllers
         {
             employeeEditVM.ComputerEmployee.EmployeeID = id;
 
+            var compEmp = await _context.ComputerEmployee.SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerID);
+            employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmp.ComputerEmployeeID;
+
             if (id != employeeEditVM.Employee.EmployeeID)
             {
                 return NotFound();
