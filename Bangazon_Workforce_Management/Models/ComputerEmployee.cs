@@ -25,6 +25,6 @@ namespace Bangazon_Workforce_Management.Models
         [DataType(DataType.Date)]
         public DateTime Start { get; set; }
         [DataType(DataType.Date)]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
     }
 }
