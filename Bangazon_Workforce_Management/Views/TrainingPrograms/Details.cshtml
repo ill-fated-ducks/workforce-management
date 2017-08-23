@@ -1,4 +1,5 @@
-@model Bangazon_Workforce_Management.Models.TrainingProgram
+<!--This Razor Template was authored by Jordan Dhaenens-->
+@model Bangazon_Workforce_Management.ViewModels.TrainingEmployeeViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,38 +12,48 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Program.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Program.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Program.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Program.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.Program.StartDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.Program.StartDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.DisplayNameFor(model => model.Program.EndDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EndDate)
+            @Html.DisplayFor(model => model.Program.EndDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MaxAttendees)
+            @Html.DisplayNameFor(model => model.Program.MaxAttendees)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MaxAttendees)
+            @Html.DisplayFor(model => model.Program.MaxAttendees)
         </dd>
+        <dt>
+            List of Attendees
+        </dt>
+        @foreach (var item in Model.TrainingProgramEmployees)
+        {
+            <dd>
+               @item.Employee.FirstName @item.Employee.LastName
+            </dd>
+
+        }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TrainingProgramID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Program.TrainingProgramID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
