@@ -100,11 +100,12 @@ namespace Bangazon_Workforce_Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditVM employeeEditVM)
         {
+            employeeEditVM.ComputerEmployee.EmployeeID = id;
+
             if (id != employeeEditVM.Employee.EmployeeID)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
 
