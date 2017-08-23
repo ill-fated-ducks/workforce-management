@@ -33,14 +33,23 @@ namespace Bangazon_Workforce_Management.Controllers
                 return NotFound();
             }
 
-            var trainingProgram = await _context.TrainingProgram
+            /*var trainingProgram = await _context.TrainingProgram
                 .SingleOrDefaultAsync(m => m.TrainingProgramID == id);
             if (trainingProgram == null)
             {
                 return NotFound();
             }
 
-            return View(trainingProgram);
+            return View(trainingProgram);*/
+            TrainingProgram program = await _context.TrainingProgram
+                .SingleOrDefaultAsync(t => t.TrainingProgramID == id);
+
+            //IEnumerable<Employee> employees = await _context.Employee.Where(e => e.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id && t.EmployeeID == e.EmployeeID)).ToListAsync();
+
+            IEnumerable<TrainingProgramEmployee> TPEs = await _context.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id).ToListAsync();
+
+
+            return View();
         }
 
         // GET: TrainingPrograms/Create
