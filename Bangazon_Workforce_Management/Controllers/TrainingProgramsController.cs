@@ -44,8 +44,7 @@ namespace Bangazon_Workforce_Management.Controllers
             return View(trainingProgram);*/
             TrainingProgram program = await _context.TrainingProgram
                 .SingleOrDefaultAsync(t => t.TrainingProgramID == id);
-            //IEnumerable<Employee> employees = await _context.Employee.Where(e => e.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id && t.EmployeeID == e.EmployeeID)).ToListAsync();
-            IEnumerable<TrainingProgramEmployee> TPEs = await _context.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id).ToListAsync();
+            IEnumerable<TrainingProgramEmployee> TPEs = await _context.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id).Include(t => t.Employee).ToListAsync();
             TrainingEmployeeViewModel something = new TrainingEmployeeViewModel(TPEs, program) { };
 
             return View(something);
