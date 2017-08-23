@@ -16,9 +16,6 @@
                     @Html.DisplayNameFor(model => model.PurchaseDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DecomissionDate)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Manufacturer)
                 </th>
                 <th>
@@ -34,17 +31,13 @@
                 @Html.DisplayFor(modelItem => item.PurchaseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DecomissionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
+                <a asp-action="Details" asp-route-id="@item.ComputerID">@Html.DisplayFor(modelItem => item.Manufacturer)</a>
+</td>
             <td>
                 @Html.DisplayFor(modelItem => item.Make)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ComputerID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ComputerID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ComputerID">Delete</a>
             </td>
         </tr>
