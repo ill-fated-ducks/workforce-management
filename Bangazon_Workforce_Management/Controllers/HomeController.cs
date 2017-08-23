@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Bangazon_Workforce_Management.Models;
 using Microsoft.EntityFrameworkCore;
+using Bangazon_Workforce_Management.ViewModels;
 
 namespace Bangazon_Workforce_Management.Controllers
 {
@@ -19,8 +20,15 @@ namespace Bangazon_Workforce_Management.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var bangazon_Workforce_ManagementContext = _context.Employee.Include(e => e.Department);
-            return View(await bangazon_Workforce_ManagementContext.ToListAsync());
+            var sortedEmployees = _context.Employee.OrderBy(e => e.StartDate).Include(d => d.Department).Take(5);
+
+            var sortedPrograms = from p in _context.TrainingProgram
+                                 where p.StartDate > DateTime.Now && p.StartDate <= DateTime.Now.AddDays(30)
+                                 select p;
+
+            var homePageView = new HomePageViewModel(sortedEmployees, sortedPrograms);
+            
+            return View(homePageView);
             
         }
 
