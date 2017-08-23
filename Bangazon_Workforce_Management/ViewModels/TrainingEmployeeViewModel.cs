@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bangazon_Workforce_Management.ViewModels
 {
+    //This class was authored by Jordan Dhaenens
+    //This class represents a join table of Training Programs and Employees
     public class TrainingEmployeeViewModel
     {
         public IEnumerable<TrainingProgramEmployee> TrainingProgramEmployees { get; set; }
