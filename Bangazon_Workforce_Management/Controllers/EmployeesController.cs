@@ -91,7 +91,6 @@ namespace Bangazon_Workforce_Management.Controllers
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
             ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
 
-            EmployeeEditVM test = vm;
             return View(vm);
         }
 
