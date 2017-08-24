@@ -90,6 +90,8 @@ namespace Bangazon_Workforce_Management.Controllers
 
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
             ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
+
+            EmployeeEditVM test = vm;
             return View(vm);
         }
 
@@ -102,7 +104,7 @@ namespace Bangazon_Workforce_Management.Controllers
         {
             employeeEditVM.ComputerEmployee.EmployeeID = id;
 
-            var compEmp = await _context.ComputerEmployee.SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerID);
+            var compEmp = await _context.ComputerEmployee.SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null);
             employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmp.ComputerEmployeeID;
 
             if (id != employeeEditVM.Employee.EmployeeID)
