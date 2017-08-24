@@ -14,44 +14,37 @@ namespace Bangazon_Workforce_Management.Models
             {
                 // Look for any computers as a check to see if db is already seeded.
 
-                if (context.Computer.Any())
-                {
-
-                    return;   // DB has been seeded
-                }
+                //if (context.Computer.Any())
+                //{
+                //    return;   // DB has been seeded
+                //}
 
                 context.Computer.AddRange(
 
-                     // present computers
+                     // present computer
                      new Computer
                      {
                          PurchaseDate = DateTime.Parse("2008-02-23"),
                          DecomissionDate = null,
-                         Manufacturer = "Apple",
-                         Make = "Macbook"
+                         Manufacturer = "Dell",
+                         Make = "Inspiron"
                      },
-                    new Computer
-                    {
-                        PurchaseDate = DateTime.Parse("2007-02-23"),
-                        DecomissionDate = null,
-                        Manufacturer = "Dell",
-                        Make = "Inspiron"
-                    },
-                     // past computers
-                    new Computer
-                    {
-                        PurchaseDate = DateTime.Parse("2007-02-23"),
-                        DecomissionDate = DateTime.Parse("2008-02-25"),
-                        Manufacturer = "Acer",
-                        Make = "HAL9000"
-                    },
+                     // past computer
                      new Computer
                      {
                          PurchaseDate = DateTime.Parse("2006-02-23"),
-                         DecomissionDate = DateTime.Parse("2007-02-23"),
-                         Manufacturer = "HP",
-                         Make = "Pavilion"
+                         DecomissionDate = null,
+                         Manufacturer = "Apple",
+                         Make = "Macbook"
+                     },
+                     new Computer
+                     {
+                         PurchaseDate = DateTime.Parse("2009-02-23"),
+                         DecomissionDate = null,
+                         Manufacturer = "Acer",
+                         Make = "Aspire"
                      }
+                     // no future computer
                 );
                 context.SaveChanges();
                 context.Department.AddRange(
@@ -73,7 +66,6 @@ namespace Bangazon_Workforce_Management.Models
                      }
                 );
                 context.SaveChanges();
-
                 context.Employee.AddRange(
                      // employees
                      new Employee
@@ -146,29 +138,22 @@ namespace Bangazon_Workforce_Management.Models
                         Start = DateTime.Parse("2000-12-13"),
                         End = DateTime.Parse("2011-12-15")
                     },
-                    new ComputerEmployee
-                    {
-                        ComputerID = context.Computer.First(s => s.Make == "Acer").ComputerID,
-                        EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
-                        Start = DateTime.Parse("2000-12-14"),
-                        End = DateTime.Parse("2011-12-16")
-                    },
                     // present assigned
                     new ComputerEmployee
                     {
                         ComputerID = context.Computer.First(s => s.Make == "Inspiron").ComputerID,
                         EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
-                        Start = DateTime.Parse("2017-12-15"),
+                        Start = DateTime.Parse("2017-12-13"),
                         End = null
                     },
-                     new ComputerEmployee
-                     {
-                         ComputerID = context.Computer.First(s => s.Make == "Inspiron").ComputerID,
-                         EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
-                         Start = DateTime.Parse("2017-1-17"),
-                         End = null
-                     }
-                     // no future assigned
+                    new ComputerEmployee
+                    {
+                        ComputerID = context.Computer.First(s => s.Make == "Aspire").ComputerID,
+                        EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
+                        Start = DateTime.Parse("2016-12-13"),
+                        End = null
+                    }
+                // no future assigned
                 );
                 context.SaveChanges();
                 context.TrainingProgramEmployee.AddRange(
