@@ -14,6 +14,7 @@ namespace Bangazon_Workforce_Management.Models
             {
                 // Look for any computers as a check to see if db is already seeded.
 
+<<<<<<< HEAD
                 if (context.Computer.Any())
                 {
                      // Computer Table has been seeded
@@ -21,37 +22,60 @@ namespace Bangazon_Workforce_Management.Models
                 else
                 {
                      context.Computer.AddRange(
+=======
+                //if (context.Computer.Any())
+                //{
+                //    return;   // DB has been seeded
+                //}
 
-                     // present computers
+                context.Computer.AddRange(
+>>>>>>> az-mig
+
+                     // present computer
                      new Computer
                      {
                          PurchaseDate = DateTime.Parse("2008-02-23"),
                          DecomissionDate = null,
-                         Manufacturer = "Apple",
-                         Make = "Macbook"
+                         Manufacturer = "Dell",
+                         Make = "Inspiron"
                      },
-                    new Computer
-                    {
-                        PurchaseDate = DateTime.Parse("2007-02-23"),
-                        DecomissionDate = null,
-                        Manufacturer = "Dell",
-                        Make = "Inspiron"
-                    },
-                     // past computers
-                    new Computer
-                    {
-                        PurchaseDate = DateTime.Parse("2007-02-23"),
-                        DecomissionDate = DateTime.Parse("2008-02-25"),
-                        Manufacturer = "Acer",
-                        Make = "HAL9000"
-                    },
+                     // past computer
                      new Computer
                      {
                          PurchaseDate = DateTime.Parse("2006-02-23"),
-                         DecomissionDate = DateTime.Parse("2007-02-23"),
-                         Manufacturer = "HP",
-                         Make = "Pavilion"
+                         DecomissionDate = null,
+                         Manufacturer = "Apple",
+                         Make = "Macbook"
+                     },
+                     new Computer
+                     {
+                         PurchaseDate = DateTime.Parse("2009-02-23"),
+                         DecomissionDate = null,
+                         Manufacturer = "Acer",
+                         Make = "Aspire"
+                     },
+                     new Computer
+                     {
+                         PurchaseDate = DateTime.Parse("2011-02-23"),
+                         DecomissionDate = null,
+                         Manufacturer = "Acer",
+                         Make = "Aspire4"
+                     },
+                     new Computer
+                     {
+                         PurchaseDate = DateTime.Parse("2008-02-23"),
+                         DecomissionDate = null,
+                         Manufacturer = "ASUS",
+                         Make = "Zenbook"
+                     },
+                     new Computer
+                     {
+                         PurchaseDate = DateTime.Parse("2010-02-23"),
+                         DecomissionDate = null,
+                         Manufacturer = "Toshiba",
+                         Make = "Space"
                      }
+<<<<<<< HEAD
                     );
                     context.SaveChanges();
                 }
@@ -65,6 +89,13 @@ namespace Bangazon_Workforce_Management.Models
                 {
 
                     context.Department.AddRange(
+=======
+
+                     // no future computer
+                );
+                context.SaveChanges();
+                context.Department.AddRange(
+>>>>>>> az-mig
                      // departments all present
                      new Department
                      {
@@ -79,8 +110,19 @@ namespace Bangazon_Workforce_Management.Models
                      new Department
                      {
                          DeptName = "R&D",
-                         Budget = 18764
+                         Budget = 22764
+                     },
+                     new Department
+                     {
+                         DeptName = "Finance",
+                         Budget = 19764
+                     },
+                     new Department
+                     {
+                         DeptName = "Sports",
+                         Budget = 38721
                      }
+<<<<<<< HEAD
                     );
                     context.SaveChanges();
                 }
@@ -93,6 +135,11 @@ namespace Bangazon_Workforce_Management.Models
                 else
                 {
                     context.Employee.AddRange(
+=======
+                );
+                context.SaveChanges();
+                context.Employee.AddRange(
+>>>>>>> az-mig
                      // employees
                      new Employee
                      {
@@ -114,10 +161,43 @@ namespace Bangazon_Workforce_Management.Models
                      {
                          FirstName = "Jacques",
                          LastName = "Cousteau",
-                         StartDate = DateTime.Parse("1994-05-13"),
+                         StartDate = DateTime.Parse("1991-05-13"),
+                         Supervisor = false,
+                         DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
+                     },
+                     new Employee
+                     {
+                         FirstName = "Drake",
+                         LastName = "Cortez",
+                         StartDate = DateTime.Parse("1999-05-13"),
+                         Supervisor = false,
+                         DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
+                     },
+                     new Employee
+                     {
+                         FirstName = "Dominic",
+                         LastName = "Verton",
+                         StartDate = DateTime.Parse("1998-05-13"),
+                         Supervisor = false,
+                         DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
+                     },
+                     new Employee
+                     {
+                         FirstName = "Wakka",
+                         LastName = "Flokka",
+                         StartDate = DateTime.Parse("1995-05-13"),
+                         Supervisor = false,
+                         DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
+                     },
+                     new Employee
+                     {
+                         FirstName = "Smith",
+                         LastName = "Havier",
+                         StartDate = DateTime.Parse("1996-05-13"),
                          Supervisor = false,
                          DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
                      }
+<<<<<<< HEAD
                     );
                     context.SaveChanges();
                 }
@@ -162,6 +242,41 @@ namespace Bangazon_Workforce_Management.Models
                      );
                     context.SaveChanges();
                 }
+=======
+
+                 );
+                context.SaveChanges();
+
+                context.TrainingProgram.AddRange(
+                    // training programs
+                    // past training program
+                    new TrainingProgram
+                    {
+                        Name = "Doing Your Best",
+                        Description = "The best ever training program",
+                        StartDate = DateTime.Parse("2010-07-23"),
+                        EndDate = DateTime.Parse("2010-07-27"),
+                        MaxAttendees = 12
+                    },
+                    // present training program
+                    new TrainingProgram
+                    {
+                        Name = "Excelling at Excel",
+                        Description = "Second best ever training program",
+                        StartDate = DateTime.Parse("2017-08-27"),
+                        EndDate = DateTime.Parse("2017-09-15"),
+                        MaxAttendees = 22
+                    },
+                    // future training program
+                    new TrainingProgram
+                    {
+                        Name = "Bring Your Things",
+                        Description = "Third best ever training program",
+                        StartDate = DateTime.Parse("2017-12-13"),
+                        EndDate = DateTime.Parse("2017-12-15"),
+                        MaxAttendees = 3
+                    }
+>>>>>>> az-mig
 
                 if (context.ComputerEmployee.Any())
                 {
@@ -177,24 +292,33 @@ namespace Bangazon_Workforce_Management.Models
                     {
                         ComputerID = context.Computer.First(s => s.Make == "Macbook").ComputerID,
                         EmployeeID = context.Employee.First(s => s.FirstName == "John").EmployeeID,
-                        Start = DateTime.Parse("2000-12-13"),
-                        End = DateTime.Parse("2011-12-15")
-                    },
-                    new ComputerEmployee
-                    {
-                        ComputerID = context.Computer.First(s => s.Make == "Acer").ComputerID,
-                        EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
-                        Start = DateTime.Parse("2000-12-14"),
-                        End = DateTime.Parse("2011-12-16")
+                        End = DateTime.Parse("2011-12-15"),
+                        Start = DateTime.Parse("2000-12-13")
                     },
                     // present assigned
                     new ComputerEmployee
                     {
                         ComputerID = context.Computer.First(s => s.Make == "Inspiron").ComputerID,
                         EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
-                        Start = DateTime.Parse("2017-12-15"),
-                        End = null
+                        End = DateTime.Parse("2011-12-15"),
+                        Start = DateTime.Parse("2017-12-13")
+
                     },
+                    new ComputerEmployee
+                    {
+                        ComputerID = context.Computer.First(s => s.Make == "Aspire").ComputerID,
+                        EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
+                        End = null,
+                        Start = DateTime.Parse("2016-12-13")
+                    },
+                    new ComputerEmployee
+                    {
+                        ComputerID = context.Computer.First(s => s.Make == "Zenbook").ComputerID,
+                        EmployeeID = context.Employee.First(s => s.FirstName == "Drake").EmployeeID,
+                        End = null,
+                        Start = DateTime.Parse("2015-12-13")
+                    },
+<<<<<<< HEAD
                      new ComputerEmployee
                      {
                          ComputerID = context.Computer.First(s => s.Make == "Macbook").ComputerID,
@@ -214,6 +338,27 @@ namespace Bangazon_Workforce_Management.Models
                 else
                 {
                     context.TrainingProgramEmployee.AddRange(
+=======
+                    new ComputerEmployee
+                    {
+                        ComputerID = context.Computer.First(s => s.Make == "Aspire4").ComputerID,
+                        EmployeeID = context.Employee.First(s => s.FirstName == "Dominic").EmployeeID,
+                        End = null,
+                        Start = DateTime.Parse("2014-12-13")
+                    },
+                    new ComputerEmployee
+                    {
+                        ComputerID = context.Computer.First(s => s.Make == "Space").ComputerID,
+                        EmployeeID = context.Employee.First(s => s.FirstName == "Wakka").EmployeeID,
+                        End = null,
+                        Start = DateTime.Parse("2016-09-13")
+                    }
+                // no future assigned
+
+                );
+                context.SaveChanges();
+                context.TrainingProgramEmployee.AddRange(
+>>>>>>> az-mig
                      // present training program joins
                      new TrainingProgramEmployee
                      {
