@@ -95,6 +95,7 @@ namespace Bangazon_Workforce_Management.Controllers
         }
 
         // POST: Employees/Edit/5
+        //This method is authored by Jordan Dhaenens and Azim 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -107,22 +108,38 @@ namespace Bangazon_Workforce_Management.Controllers
             {
                 return NotFound();
             }
+            
+            
 
             employeeEditVM.ComputerEmployee.EmployeeID = id;
-            var compEmp = await _context.ComputerEmployee
+            //Is the computerID not in the ComputerEmployee table? If not, then we are saving a new instance of ComputerEmployee to DB
+            var existsInComputerEmployee = await _context.ComputerEmployee
                 .SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id && employeeEditVM.ComputerEmployee.End < DateTime.Now);
+            //If there is an instance of ComputerEmployee that matches the update criteria
+            if (existsInComputerEmployee != null)
+            {
+                //This needs to go inside an if statement as condition of whether the computer has ever been assigned to ComputerEmployee table
+                employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
+            }
 
             if (ModelState.IsValid)
             {
-                //This needs to go inside an if statement as condition of whether the computer has ever been assigned to ComputerEmployee table
-                employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmp.ComputerEmployeeID;
-
+                
                 try
                 {
-                    //This is to update employee name
+                    //This is to update employee name and DepartmentID
                     _context.Update(employeeEditVM.Employee);
-                    //This is to update the assignment of a computer
-                    _context.Update(employeeEditVM.ComputerEmployee);
+                    
+                    //This adds a new instance of ComputerEmployee to DB
+                    if (existsInComputerEmployee == null)
+                    {
+                        ComputerEmployee computerEmployeeInstance = employeeEditVM.ComputerEmployee;
+                        _context.Add(computerEmployeeInstance);
+                    } else
+                    {
+                        //This is to update the assignment of a computer
+                        _context.Update(employeeEditVM.ComputerEmployee);
+                    }
                     //This saves all changes
                     await _context.SaveChangesAsync();
                 }
@@ -137,7 +154,7 @@ namespace Bangazon_Workforce_Management.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");      
             }
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employeeEditVM.Employee.DeptID);
             ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", employeeEditVM.ComputerEmployee.ComputerID);
