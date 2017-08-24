@@ -102,7 +102,7 @@ namespace Bangazon_Workforce_Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditVM employeeEditVM)
         {
-            
+
 
             if (id != employeeEditVM.Employee.EmployeeID)
             {
