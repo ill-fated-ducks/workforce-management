@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon_Workforce_Management.Models;
+using Bangazon_Workforce_Management.ViewModels;
 
 namespace Bangazon_Workforce_Management.Controllers
 {
@@ -33,14 +34,20 @@ namespace Bangazon_Workforce_Management.Controllers
                 return NotFound();
             }
 
-            var trainingProgram = await _context.TrainingProgram
+            /*var trainingProgram = await _context.TrainingProgram
                 .SingleOrDefaultAsync(m => m.TrainingProgramID == id);
             if (trainingProgram == null)
             {
                 return NotFound();
             }
 
-            return View(trainingProgram);
+            return View(trainingProgram);*/
+            TrainingProgram program = await _context.TrainingProgram
+                .SingleOrDefaultAsync(t => t.TrainingProgramID == id);
+            IEnumerable<TrainingProgramEmployee> TPEs = await _context.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id).Include(t => t.Employee).ToListAsync();
+            TrainingEmployeeViewModel something = new TrainingEmployeeViewModel(TPEs, program) { };
+
+            return View(something);
         }
 
         // GET: TrainingPrograms/Create

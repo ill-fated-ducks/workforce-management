@@ -241,6 +241,7 @@ namespace Bangazon_Workforce_Management.Models
                         Start = DateTime.Parse("2016-09-13")
                     }
                 // no future assigned
+
                 );
                 context.SaveChanges();
                 context.TrainingProgramEmployee.AddRange(
