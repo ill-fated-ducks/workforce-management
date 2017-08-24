@@ -112,15 +112,17 @@ namespace Bangazon_Workforce_Management.Controllers
             
 
             employeeEditVM.ComputerEmployee.EmployeeID = id;
-            //Does the employee currently have a computer in the ComputerEmployee table? If not, then we are saving a new instance of ComputerEmployee to DB
+            //Does the employee currently have a computer? Then we need to update that entry and end its assignment and the create a new entry for that employee
             var existsInComputerEmployee = await _context.ComputerEmployee
-                .SingleOrDefaultAsync(e => e.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null);
+                .SingleOrDefaultAsync(e => e.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null && e.ComputerID != employeeEditVM.ComputerID);
             //If there is an instance of ComputerEmployee that matches the update criteria
             if (existsInComputerEmployee != null)
             {
-                //This sets the ComputerEmployeeID of the entry that needs an End date
+                //This sets the ComputerEmployeeID of the entry that needs their End date updated
                 employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
+                existsInComputerEmployee.End = DateTime.Now;
             }
+            employeeEditVM.ComputerEmployee.Start = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -129,18 +131,20 @@ namespace Bangazon_Workforce_Management.Controllers
                 {
                     //This is to update employee name and DepartmentID
                     _context.Update(employeeEditVM.Employee);
-                    
-                    //This adds a new instance of ComputerEmployee to DB
-                    if (existsInComputerEmployee == null)
+                    _context.Update(existsInComputerEmployee);
+                    _context.Add(employeeEditVM.ComputerEmployee);
+                    //This adds a new instance of ComputerEmployee to DB for employees who have never had a computer
+                    /*if (existsInComputerEmployee == null)
                     {
                         ComputerEmployee computerEmployeeInstance = employeeEditVM.ComputerEmployee;
+                        //this line can change once End is nullable
                         computerEmployeeInstance.End = DateTime.Now;
                         _context.Add(computerEmployeeInstance);
                     } else
                     {
                         //This is to update the assignment of a computer
                         _context.Update(employeeEditVM.ComputerEmployee);
-                    }
+                    }*/
                     //This saves all changes
                     await _context.SaveChangesAsync();
                 }
