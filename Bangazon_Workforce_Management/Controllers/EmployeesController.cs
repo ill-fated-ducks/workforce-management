@@ -112,13 +112,13 @@ namespace Bangazon_Workforce_Management.Controllers
             
 
             employeeEditVM.ComputerEmployee.EmployeeID = id;
-            //Is the computerID not in the ComputerEmployee table? If not, then we are saving a new instance of ComputerEmployee to DB
+            //Does the employee currently have a computer in the ComputerEmployee table? If not, then we are saving a new instance of ComputerEmployee to DB
             var existsInComputerEmployee = await _context.ComputerEmployee
-                .SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id && employeeEditVM.ComputerEmployee.End < DateTime.Now);
+                .SingleOrDefaultAsync(e => e.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null);
             //If there is an instance of ComputerEmployee that matches the update criteria
             if (existsInComputerEmployee != null)
             {
-                //This needs to go inside an if statement as condition of whether the computer has ever been assigned to ComputerEmployee table
+                //This sets the ComputerEmployeeID of the entry that needs an End date
                 employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
             }
 
@@ -134,6 +134,7 @@ namespace Bangazon_Workforce_Management.Controllers
                     if (existsInComputerEmployee == null)
                     {
                         ComputerEmployee computerEmployeeInstance = employeeEditVM.ComputerEmployee;
+                        computerEmployeeInstance.End = DateTime.Now;
                         _context.Add(computerEmployeeInstance);
                     } else
                     {
