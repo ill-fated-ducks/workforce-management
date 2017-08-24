@@ -101,22 +101,29 @@ namespace Bangazon_Workforce_Management.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditVM employeeEditVM)
         {
-            employeeEditVM.ComputerEmployee.EmployeeID = id;
-
-            var compEmp = await _context.ComputerEmployee.SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null);
-            employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmp.ComputerEmployeeID;
+            
 
             if (id != employeeEditVM.Employee.EmployeeID)
             {
                 return NotFound();
             }
+
+            employeeEditVM.ComputerEmployee.EmployeeID = id;
+            var compEmp = await _context.ComputerEmployee
+                .SingleOrDefaultAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id && employeeEditVM.ComputerEmployee.End < DateTime.Now);
+
             if (ModelState.IsValid)
             {
+                //This needs to go inside an if statement as condition of whether the computer has ever been assigned to ComputerEmployee table
+                employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmp.ComputerEmployeeID;
 
                 try
                 {
+                    //This is to update employee name
                     _context.Update(employeeEditVM.Employee);
+                    //This is to update the assignment of a computer
                     _context.Update(employeeEditVM.ComputerEmployee);
+                    //This saves all changes
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
