@@ -16,11 +16,11 @@ namespace Bangazon_Workforce_Management.Models
 
                 if (context.Computer.Any())
                 {
-
-                    return;   // DB has been seeded
+                   // Computer Table has been seeded
                 }
-
-                context.Computer.AddRange(
+                else
+                {
+                    context.Computer.AddRange(
 
                      // present computers
                      new Computer
@@ -52,9 +52,19 @@ namespace Bangazon_Workforce_Management.Models
                          Manufacturer = "HP",
                          Make = "Pavilion"
                      }
-                );
+                    );
                 context.SaveChanges();
-                context.Department.AddRange(
+                }
+
+                
+
+                if (context.Department.Any())
+                {
+                    // Department Table has been seeded
+                }
+                else
+                {
+                     context.Department.AddRange(
                      // departments all present
                      new Department
                      {
@@ -71,10 +81,18 @@ namespace Bangazon_Workforce_Management.Models
                          DeptName = "R&D",
                          Budget = 18764
                      }
-                );
+                    );
                 context.SaveChanges();
+                }
 
-                context.Employee.AddRange(
+
+                if (context.Employee.Any())
+                {
+                    // Department Table has been seeded
+                }
+                else
+                {
+                     context.Employee.AddRange(
                      // employees
                      new Employee
                      {
@@ -100,20 +118,27 @@ namespace Bangazon_Workforce_Management.Models
                          Supervisor = false,
                          DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
                      }
-                 );
+                    );
                 context.SaveChanges();
+                }
 
-                context.TrainingProgram.AddRange(
-                        // training programs
-                        // past training program
-                        new TrainingProgram
-                        {
-                            Name = "Doing Your Best",
-                            Description = "The best ever training program",
-                            StartDate = DateTime.Parse("2010-07-23"),
-                            EndDate = DateTime.Parse("2010-07-27"),
-                            MaxAttendees = 12
-                        },
+                if (context.TrainingProgram.Any())
+                {
+                    // Training Program Table has been seeded
+                }
+                else
+                {
+                    context.TrainingProgram.AddRange(
+                    // training programs
+                    // past training program
+                    new TrainingProgram
+                    {
+                         Name = "Doing Your Best",
+                         Description = "The best ever training program",
+                         StartDate = DateTime.Parse("2010-07-23"),
+                         EndDate = DateTime.Parse("2010-07-27"),
+                         MaxAttendees = 12
+                    },
                     // present training program
                     new TrainingProgram
                     {
@@ -133,10 +158,18 @@ namespace Bangazon_Workforce_Management.Models
                         MaxAttendees = 3
                     }
 
-                 );
-                context.SaveChanges();
+                    );
+                    context.SaveChanges();
+                }
 
-                context.ComputerEmployee.AddRange(
+
+                if (context.ComputerEmployee.Any())
+                {
+                    // ComputerEmployee Table has been seeded
+                }
+                else
+                {
+                    context.ComputerEmployee.AddRange(
                     // computer employee joins
                     // past assigned
                     new ComputerEmployee
@@ -169,9 +202,17 @@ namespace Bangazon_Workforce_Management.Models
                          End = null
                      }
                      // no future assigned
-                );
-                context.SaveChanges();
-                context.TrainingProgramEmployee.AddRange(
+                    );
+                    context.SaveChanges();
+                }
+
+                if (context.TrainingProgramEmployee.Any())
+                {
+                    // TrainingProgramEmployee Table has been seeded
+                }
+                else
+                {
+                     context.TrainingProgramEmployee.AddRange(
                      // present training program joins
                      new TrainingProgramEmployee
                      {
@@ -183,9 +224,11 @@ namespace Bangazon_Workforce_Management.Models
                          TrainingProgramID = context.TrainingProgram.First(s => s.Name == "Bring Your Things").TrainingProgramID,
                          EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
                      }
-                );
+                    );
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                }
+ 
             }
         }
     }
