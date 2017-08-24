@@ -119,7 +119,7 @@ namespace Bangazon_Workforce_Management.Controllers
             if (existsInComputerEmployee != null)
             {
                 //This sets the ComputerEmployeeID of the entry that needs their End date updated
-                employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
+                //employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
                 existsInComputerEmployee.End = DateTime.Now;
             }
             employeeEditVM.ComputerEmployee.Start = DateTime.Now;
