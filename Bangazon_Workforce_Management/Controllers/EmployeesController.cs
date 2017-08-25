@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon_Workforce_Management.Models;
+using Bangazon_Workforce_Management.Models.ViewModel;
 
 namespace Bangazon_Workforce_Management.Controllers
 {
@@ -83,8 +84,13 @@ namespace Bangazon_Workforce_Management.Controllers
             {
                 return NotFound();
             }
+            var vm = new EmployeeEditVM();
+            vm.Employee = employee;
+
+
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
-            return View(employee);
+            ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
+            return View(vm);
         }
 
         // POST: Employees/Edit/5
@@ -92,23 +98,29 @@ namespace Bangazon_Workforce_Management.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,FirstName,LastName,StartDate,Supervisor,DeptID")] Employee employee)
+        public async Task<IActionResult> Edit(int id, EmployeeEditVM employeeEditVM)
         {
-            if (id != employee.EmployeeID)
+            employeeEditVM.ComputerEmployee.EmployeeID = id;
+
+            var compEmpID = await _context.ComputerEmployee.SingleAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id);
+            employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmpID.ComputerEmployeeID;
+
+            if (id != employeeEditVM.Employee.EmployeeID)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
+
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(employeeEditVM.Employee);
+                    _context.Update(employeeEditVM.ComputerEmployee);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmployeeID))
+                    if (!EmployeeExists(employeeEditVM.Employee.EmployeeID))
                     {
                         return NotFound();
                     }
@@ -119,8 +131,9 @@ namespace Bangazon_Workforce_Management.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
-            return View(employee);
+            ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employeeEditVM.Employee.DeptID);
+            ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", employeeEditVM.ComputerEmployee.ComputerID);
+            return View(employeeEditVM);
         }
 
         // GET: Employees/Delete/5
