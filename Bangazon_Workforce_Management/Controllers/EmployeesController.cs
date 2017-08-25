@@ -27,6 +27,7 @@ namespace Bangazon_Workforce_Management.Controllers
         }
 
         // GET: Employees/Details/5
+        //This method was authored by Azim Sodikov
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,7 +37,6 @@ namespace Bangazon_Workforce_Management.Controllers
 
             var employee = await _context.Employee
                 .Include(e => e.Department)
-                //.Include("ComputerEmployee.Computer")
                 .Include("ComputerEmployee.Computer")
                 .Include("TrainingProgramEmployee.TrainingProgram")
                 .SingleOrDefaultAsync(m => m.EmployeeID == id);
@@ -73,6 +73,7 @@ namespace Bangazon_Workforce_Management.Controllers
         }
 
         // GET: Employees/Edit/5
+        ////This method was authored by Jordan Dhaenens, Azim Sodikov, Andrew Rock
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -125,7 +126,7 @@ namespace Bangazon_Workforce_Management.Controllers
             
 
             employeeEditVM.ComputerEmployee.EmployeeID = id;
-            //Does the employee currently have a computer? Then we need to update that entry and end its assignment and the create a new entry for that employee
+            //Does the employee currently have a computer? Then we need to update that entry, end its assignment and the create a new entry for that employee
             var existsInComputerEmployee = await _context.ComputerEmployee
                 .SingleOrDefaultAsync(e => e.EmployeeID == id && e.End == null);
             //If there is an instance of ComputerEmployee that matches the update criteria
