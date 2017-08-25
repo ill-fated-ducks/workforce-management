@@ -27,6 +27,7 @@ namespace Bangazon_Workforce_Management.Controllers
         }
 
         // GET: Employees/Details/5
+        //This method was authored by Azim Sodikov
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,6 +73,7 @@ namespace Bangazon_Workforce_Management.Controllers
         }
 
         // GET: Employees/Edit/5
+        ////This method was authored by Jordan Dhaenens, Azim Sodikov, Andrew Rock
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,36 +88,72 @@ namespace Bangazon_Workforce_Management.Controllers
             }
             var vm = new EmployeeEditVM();
             vm.Employee = employee;
+            //Grabs unassigned computers from ComputerEmployee and Computer tables
+            IEnumerable<Computer> assignedComps = from ce in _context.ComputerEmployee
+                                   from c in _context.Computer
+                                   where ce.End == null
+                                   where ce.ComputerID == c.ComputerID
+                                   select c;
 
+            IEnumerable<Computer> allComps = from c in _context.Computer
+                           where c.DecomissionDate == null
+                              select c;
 
+            IEnumerable<Computer> unassignedComps = allComps.Except(assignedComps);
+
+            
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
-            ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
+            ViewData["ComputerID"] = new SelectList(unassignedComps, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
+
             return View(vm);
         }
 
         // POST: Employees/Edit/5
+        //This method is authored by Jordan Dhaenens and Azim 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmployeeEditVM employeeEditVM)
         {
-            employeeEditVM.ComputerEmployee.EmployeeID = id;
 
-            var compEmpID = await _context.ComputerEmployee.SingleAsync(c => c.ComputerID == employeeEditVM.ComputerEmployee.ComputerID && c.EmployeeID == id);
-            employeeEditVM.ComputerEmployee.ComputerEmployeeID = compEmpID.ComputerEmployeeID;
 
             if (id != employeeEditVM.Employee.EmployeeID)
             {
                 return NotFound();
             }
+            
+            
+
+            employeeEditVM.ComputerEmployee.EmployeeID = id;
+            //Does the employee currently have a computer? Then we need to update that entry, end its assignment and the create a new entry for that employee
+            var existsInComputerEmployee = await _context.ComputerEmployee
+                .SingleOrDefaultAsync(e => e.EmployeeID == id && e.End == null);
+            //If there is an instance of ComputerEmployee that matches the update criteria
+            if (existsInComputerEmployee != null)
+            {
+                //This sets the ComputerEmployeeID of the entry that needs their End date updated
+                existsInComputerEmployee.End = DateTime.Now;
+            }
+            employeeEditVM.ComputerEmployee.Start = DateTime.Now;
+
             if (ModelState.IsValid)
             {
-
+                
                 try
                 {
+                    //This is to update employee name and DepartmentID
                     _context.Update(employeeEditVM.Employee);
-                    _context.Update(employeeEditVM.ComputerEmployee);
+                    if (existsInComputerEmployee != null)
+                    {
+                        _context.Update(existsInComputerEmployee);
+                    } 
+                    if (employeeEditVM.ComputerEmployee.ComputerID != 0)
+                    {
+                        _context.Add(employeeEditVM.ComputerEmployee);
+                    }
+                    
+                    //This saves all changes
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -129,7 +167,7 @@ namespace Bangazon_Workforce_Management.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");      
             }
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employeeEditVM.Employee.DeptID);
             ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", employeeEditVM.ComputerEmployee.ComputerID);
