@@ -86,10 +86,22 @@ namespace Bangazon_Workforce_Management.Controllers
             }
             var vm = new EmployeeEditVM();
             vm.Employee = employee;
+            //Grabs unassigned computers from ComputerEmployee and Computer tables
+            IEnumerable<Computer> assignedComps = from ce in _context.ComputerEmployee
+                                   from c in _context.Computer
+                                   where ce.End == null
+                                   where ce.ComputerID == c.ComputerID
+                                   select c;
 
+            IEnumerable<Computer> allComps = from c in _context.Computer
+                           where c.DecomissionDate == null
+                              select c;
 
+            IEnumerable<Computer> unassignedComps = allComps.Except(assignedComps);
+
+            
             ViewData["DeptID"] = new SelectList(_context.Department, "DeptID", "DeptName", employee.DeptID);
-            ViewData["ComputerID"] = new SelectList(_context.Computer, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
+            ViewData["ComputerID"] = new SelectList(unassignedComps, "ComputerID", "Make", vm.ComputerEmployee.ComputerID);
 
             return View(vm);
         }
@@ -114,12 +126,11 @@ namespace Bangazon_Workforce_Management.Controllers
             employeeEditVM.ComputerEmployee.EmployeeID = id;
             //Does the employee currently have a computer? Then we need to update that entry and end its assignment and the create a new entry for that employee
             var existsInComputerEmployee = await _context.ComputerEmployee
-                .SingleOrDefaultAsync(e => e.EmployeeID == id && employeeEditVM.ComputerEmployee.End == null && e.ComputerID != employeeEditVM.ComputerID);
+                .SingleOrDefaultAsync(e => e.EmployeeID == id && e.End == null);
             //If there is an instance of ComputerEmployee that matches the update criteria
             if (existsInComputerEmployee != null)
             {
                 //This sets the ComputerEmployeeID of the entry that needs their End date updated
-                //employeeEditVM.ComputerEmployee.ComputerEmployeeID = existsInComputerEmployee.ComputerEmployeeID;
                 existsInComputerEmployee.End = DateTime.Now;
             }
             employeeEditVM.ComputerEmployee.Start = DateTime.Now;
@@ -131,20 +142,15 @@ namespace Bangazon_Workforce_Management.Controllers
                 {
                     //This is to update employee name and DepartmentID
                     _context.Update(employeeEditVM.Employee);
-                    _context.Update(existsInComputerEmployee);
-                    _context.Add(employeeEditVM.ComputerEmployee);
-                    //This adds a new instance of ComputerEmployee to DB for employees who have never had a computer
-                    /*if (existsInComputerEmployee == null)
+                    if (existsInComputerEmployee != null)
                     {
-                        ComputerEmployee computerEmployeeInstance = employeeEditVM.ComputerEmployee;
-                        //this line can change once End is nullable
-                        computerEmployeeInstance.End = DateTime.Now;
-                        _context.Add(computerEmployeeInstance);
-                    } else
+                        _context.Update(existsInComputerEmployee);
+                    } 
+                    if (employeeEditVM.ComputerEmployee.ComputerID != 0)
                     {
-                        //This is to update the assignment of a computer
-                        _context.Update(employeeEditVM.ComputerEmployee);
-                    }*/
+                        _context.Add(employeeEditVM.ComputerEmployee);
+                    }
+                    
                     //This saves all changes
                     await _context.SaveChangesAsync();
                 }
