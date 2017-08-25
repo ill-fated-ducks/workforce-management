@@ -34,14 +34,6 @@ namespace Bangazon_Workforce_Management.Controllers
                 return NotFound();
             }
 
-            /*var trainingProgram = await _context.TrainingProgram
-                .SingleOrDefaultAsync(m => m.TrainingProgramID == id);
-            if (trainingProgram == null)
-            {
-                return NotFound();
-            }
-
-            return View(trainingProgram);*/
             TrainingProgram program = await _context.TrainingProgram
                 .SingleOrDefaultAsync(t => t.TrainingProgramID == id);
             IEnumerable<TrainingProgramEmployee> TPEs = await _context.TrainingProgramEmployee.Where(t => t.TrainingProgramID == id).Include(t => t.Employee).ToListAsync();
