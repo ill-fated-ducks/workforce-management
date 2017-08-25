@@ -14,13 +14,13 @@ namespace Bangazon_Workforce_Management.Models
             {
                 // Look for any computers as a check to see if db is already seeded.
 
-                //if (context.Computer.Any())
-                //{
-                //    return;   // DB has been seeded
-                //}
-
-                context.Computer.AddRange(
-
+                if (context.Computer.Any())
+                {
+                     // Computer Table has been seeded
+                }
+                else
+                {
+                     context.Computer.AddRange(
                      // present computer
                      new Computer
                      {
@@ -66,10 +66,20 @@ namespace Bangazon_Workforce_Management.Models
                          Make = "Space"
                      }
 
-                     // no future computer
-                );
-                context.SaveChanges();
-                context.Department.AddRange(
+                    );
+                    context.SaveChanges();
+                }
+
+
+                if (context.Department.Any())
+                {
+                    // Department Table has been seeded
+                }
+                else
+                {
+
+                    context.Department.AddRange(
+
                      // departments all present
                      new Department
                      {
@@ -96,9 +106,20 @@ namespace Bangazon_Workforce_Management.Models
                          DeptName = "Sports",
                          Budget = 38721
                      }
-                );
-                context.SaveChanges();
-                context.Employee.AddRange(
+
+                    );
+                    context.SaveChanges();
+                }
+
+
+                if (context.Employee.Any())
+                {
+                    // Employee Table has been seeded
+                }
+                else
+                {
+                    context.Employee.AddRange(
+
                      // employees
                      new Employee
                      {
@@ -157,43 +178,60 @@ namespace Bangazon_Workforce_Management.Models
                          DeptID = context.Department.First(s => s.DeptName == "R&D").DeptID,
                      }
 
-                 );
-                context.SaveChanges();
+                    );
+                    context.SaveChanges();
+                }
 
-                context.TrainingProgram.AddRange(
-                    // training programs
-                    // past training program
-                    new TrainingProgram
-                    {
-                        Name = "Doing Your Best",
-                        Description = "The best ever training program",
-                        StartDate = DateTime.Parse("2010-07-23"),
-                        EndDate = DateTime.Parse("2010-07-27"),
-                        MaxAttendees = 12
-                    },
-                    // present training program
-                    new TrainingProgram
-                    {
-                        Name = "Excelling at Excel",
-                        Description = "Second best ever training program",
-                        StartDate = DateTime.Parse("2017-08-27"),
-                        EndDate = DateTime.Parse("2017-09-15"),
-                        MaxAttendees = 22
-                    },
-                    // future training program
-                    new TrainingProgram
-                    {
-                        Name = "Bring Your Things",
-                        Description = "Third best ever training program",
-                        StartDate = DateTime.Parse("2017-12-13"),
-                        EndDate = DateTime.Parse("2017-12-15"),
-                        MaxAttendees = 3
-                    }
 
-                 );
-                context.SaveChanges();
+                if (context.TrainingProgram.Any())
+                {
+                    // TrainingProgram Table has been seeded
+                }
+                else
+                {
+                    context.TrainingProgram.AddRange(
+                        // training programs
+                        // past training program
+                        new TrainingProgram
+                        {
+                            Name = "Doing Your Best",
+                            Description = "The best ever training program",
+                            StartDate = DateTime.Parse("2010-07-23"),
+                            EndDate = DateTime.Parse("2010-07-27"),
+                            MaxAttendees = 12
+                        },
+                        // present training program
+                        new TrainingProgram
+                        {
+                            Name = "Excelling at Excel",
+                            Description = "Second best ever training program",
+                            StartDate = DateTime.Parse("2017-08-27"),
+                            EndDate = DateTime.Parse("2017-09-15"),
+                            MaxAttendees = 22
+                        },
+                       // future training program
+                       new TrainingProgram
+                       {
+                           Name = "Bring Your Things",
+                           Description = "Third best ever training program",
+                           StartDate = DateTime.Parse("2017-12-13"),
+                           EndDate = DateTime.Parse("2017-12-15"),
+                           MaxAttendees = 3
+                       }
 
-                context.ComputerEmployee.AddRange(
+                     );
+                    context.SaveChanges();
+                }
+
+
+                if (context.ComputerEmployee.Any())
+                {
+                    // ComputerEmployee Table has been seeded
+                }
+                else
+                {
+
+                    context.ComputerEmployee.AddRange(
                     // computer employee joins
                     // past assigned
                     new ComputerEmployee
@@ -226,25 +264,27 @@ namespace Bangazon_Workforce_Management.Models
                         End = null,
                         Start = DateTime.Parse("2015-12-13")
                     },
-                    new ComputerEmployee
-                    {
-                        ComputerID = context.Computer.First(s => s.Make == "Aspire4").ComputerID,
-                        EmployeeID = context.Employee.First(s => s.FirstName == "Dominic").EmployeeID,
-                        End = null,
-                        Start = DateTime.Parse("2014-12-13")
-                    },
-                    new ComputerEmployee
-                    {
-                        ComputerID = context.Computer.First(s => s.Make == "Space").ComputerID,
-                        EmployeeID = context.Employee.First(s => s.FirstName == "Wakka").EmployeeID,
-                        End = null,
-                        Start = DateTime.Parse("2016-09-13")
-                    }
-                // no future assigned
 
-                );
-                context.SaveChanges();
-                context.TrainingProgramEmployee.AddRange(
+                     new ComputerEmployee
+                     {
+                         ComputerID = context.Computer.First(s => s.Make == "Macbook").ComputerID,
+                         EmployeeID = context.Employee.First(s => s.FirstName == "Jacques").EmployeeID,
+                         Start = DateTime.Parse("2017-1-17"),
+                         End = null
+                     }
+                     // no future assigned
+                    );
+                    context.SaveChanges();
+                }
+
+                if (context.TrainingProgramEmployee.Any())
+                {
+                    // TrainingProgramEmployee Table has been seeded
+                }
+                else
+                {
+                    context.TrainingProgramEmployee.AddRange(
+
                      // present training program joins
                      new TrainingProgramEmployee
                      {
@@ -256,9 +296,10 @@ namespace Bangazon_Workforce_Management.Models
                          TrainingProgramID = context.TrainingProgram.First(s => s.Name == "Bring Your Things").TrainingProgramID,
                          EmployeeID = context.Employee.First(s => s.FirstName == "Jimmy").EmployeeID,
                      }
-                );
+                    );
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                }
             }
         }
     }
